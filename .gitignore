@@ -31,3 +31,10 @@
 # Debug files
 *.dSYM/
 /build/
+
+*
+
+!*.c
+!.h
+!*/*.c
+!*/*.h
