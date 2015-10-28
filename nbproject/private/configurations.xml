@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="97">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="src/include" name="0">
+      <in>dl_core.h</in>
+    </df>
+    <df root="/usr/include/php5" name="2">
+      <df name="ext">
+        <df name="date">
+          <df name="lib">
+            <in>timelib.h</in>
+            <in>timelib_config.h</in>
+            <in>timelib_structs.h</in>
+          </df>
+          <in>php_date.h</in>
+        </df>
+        <df name="dom">
+          <in>xml_common.h</in>
+        </df>
+        <df name="ereg">
+          <df name="regex">
+            <in>cclass.h</in>
+            <in>cname.h</in>
+            <in>regex.h</in>
+            <in>regex2.h</in>
+            <in>utils.h</in>
+          </df>
+          <in>php_ereg.h</in>
+          <in>php_regex.h</in>
+        </df>
+        <df name="filter">
+          <in>php_filter.h</in>
+        </df>
+        <df name="gd">
+          <in>gd_compat.h</in>
+          <in>gdcache.h</in>
+          <in>php_gd.h</in>
+        </df>
+        <df name="hash">
+          <in>php_hash.h</in>
+          <in>php_hash_adler32.h</in>
+          <in>php_hash_crc32.h</in>
+          <in>php_hash_fnv.h</in>
+          <in>php_hash_gost.h</in>
+          <in>php_hash_haval.h</in>
+          <in>php_hash_joaat.h</in>
+          <in>php_hash_md.h</in>
+          <in>php_hash_ripemd.h</in>
+          <in>php_hash_sha.h</in>
+          <in>php_hash_snefru.h</in>
+          <in>php_hash_tiger.h</in>
+          <in>php_hash_whirlpool.h</in>
+        </df>
+        <df name="iconv">
+          <in>php_have_bsd_iconv.h</in>
+          <in>php_have_glibc_iconv.h</in>
+          <in>php_have_ibm_iconv.h</in>
+          <in>php_have_iconv.h</in>
+          <in>php_have_libiconv.h</in>
+          <in>php_iconv.h</in>
+          <in>php_iconv_aliased_libiconv.h</in>
+          <in>php_iconv_supports_errno.h</in>
+          <in>php_php_iconv_h_path.h</in>
+          <in>php_php_iconv_impl.h</in>
+        </df>
+        <df name="json">
+          <in>php_json.h</in>
+        </df>
+        <df name="libxml">
+          <in>php_libxml.h</in>
+        </df>
+        <df name="mbstring">
+          <df name="libmbfl">
+            <df name="mbfl">
+              <in>eaw_table.h</in>
+              <in>mbfilter.h</in>
+              <in>mbfilter_8bit.h</in>
+              <in>mbfilter_pass.h</in>
+              <in>mbfilter_wchar.h</in>
+              <in>mbfl_allocators.h</in>
+              <in>mbfl_consts.h</in>
+              <in>mbfl_convert.h</in>
+              <in>mbfl_defs.h</in>
+              <in>mbfl_encoding.h</in>
+              <in>mbfl_filter_output.h</in>
+              <in>mbfl_ident.h</in>
+              <in>mbfl_language.h</in>
+              <in>mbfl_memory_device.h</in>
+              <in>mbfl_string.h</in>
+            </df>
+            <in>config.h</in>
+          </df>
+          <df name="oniguruma">
+            <in>oniguruma.h</in>
+          </df>
+          <in>mbstring.h</in>
+          <in>php_mbregex.h</in>
+          <in>php_onig_compat.h</in>
+        </df>
+        <df name="mysqli">
+          <in>mysqli_libmysql.h</in>
+          <in>mysqli_mysqlnd.h</in>
+          <in>php_mysqli_structs.h</in>
+        </df>
+        <df name="mysqlnd">
+          <in>config-win.h</in>
+          <in>mysqlnd.h</in>
+          <in>mysqlnd_alloc.h</in>
+          <in>mysqlnd_block_alloc.h</in>
+          <in>mysqlnd_charset.h</in>
+          <in>mysqlnd_debug.h</in>
+          <in>mysqlnd_enum_n_def.h</in>
+          <in>mysqlnd_ext_plugin.h</in>
+          <in>mysqlnd_libmysql_compat.h</in>
+          <in>mysqlnd_net.h</in>
+          <in>mysqlnd_portability.h</in>
+          <in>mysqlnd_priv.h</in>
+          <in>mysqlnd_result.h</in>
+          <in>mysqlnd_result_meta.h</in>
+          <in>mysqlnd_reverse_api.h</in>
+          <in>mysqlnd_statistics.h</in>
+          <in>mysqlnd_structs.h</in>
+          <in>mysqlnd_wireprotocol.h</in>
+          <in>php_mysqlnd.h</in>
+        </df>
+        <df name="pcre">
+          <in>php_pcre.h</in>
+        </df>
+        <df name="pdo">
+          <in>php_pdo.h</in>
+          <in>php_pdo_driver.h</in>
+          <in>php_pdo_error.h</in>
+        </df>
+        <df name="phar">
+          <in>php_phar.h</in>
+        </df>
+        <df name="session">
+          <in>mod_files.h</in>
+          <in>mod_user.h</in>
+          <in>php_session.h</in>
+        </df>
+        <df name="simplexml">
+          <in>php_simplexml.h</in>
+          <in>php_simplexml_exports.h</in>
+        </df>
+        <df name="sockets">
+          <in>php_sockets.h</in>
+        </df>
+        <df name="spl">
+          <in>php_spl.h</in>
+          <in>spl_array.h</in>
+          <in>spl_directory.h</in>
+          <in>spl_dllist.h</in>
+          <in>spl_engine.h</in>
+          <in>spl_exceptions.h</in>
+          <in>spl_fixedarray.h</in>
+          <in>spl_functions.h</in>
+          <in>spl_heap.h</in>
+          <in>spl_iterators.h</in>
+          <in>spl_observer.h</in>
+        </df>
+        <df name="standard">
+          <in>base64.h</in>
+          <in>basic_functions.h</in>
+          <in>crc32.h</in>
+          <in>credits.h</in>
+          <in>credits_ext.h</in>
+          <in>credits_sapi.h</in>
+          <in>crypt_blowfish.h</in>
+          <in>crypt_freesec.h</in>
+          <in>css.h</in>
+          <in>cyr_convert.h</in>
+          <in>datetime.h</in>
+          <in>dl.h</in>
+          <in>exec.h</in>
+          <in>file.h</in>
+          <in>flock_compat.h</in>
+          <in>fsock.h</in>
+          <in>head.h</in>
+          <in>html.h</in>
+          <in>html_tables.h</in>
+          <in>info.h</in>
+          <in>md5.h</in>
+          <in>microtime.h</in>
+          <in>pack.h</in>
+          <in>pageinfo.h</in>
+          <in>php_array.h</in>
+          <in>php_assert.h</in>
+          <in>php_browscap.h</in>
+          <in>php_crypt.h</in>
+          <in>php_crypt_r.h</in>
+          <in>php_dir.h</in>
+          <in>php_dns.h</in>
+          <in>php_ext_syslog.h</in>
+          <in>php_filestat.h</in>
+          <in>php_fopen_wrappers.h</in>
+          <in>php_ftok.h</in>
+          <in>php_http.h</in>
+          <in>php_image.h</in>
+          <in>php_incomplete_class.h</in>
+          <in>php_iptc.h</in>
+          <in>php_lcg.h</in>
+          <in>php_link.h</in>
+          <in>php_mail.h</in>
+          <in>php_math.h</in>
+          <in>php_metaphone.h</in>
+          <in>php_password.h</in>
+          <in>php_rand.h</in>
+          <in>php_smart_str.h</in>
+          <in>php_smart_str_public.h</in>
+          <in>php_standard.h</in>
+          <in>php_string.h</in>
+          <in>php_type.h</in>
+          <in>php_uuencode.h</in>
+          <in>php_var.h</in>
+          <in>php_versioning.h</in>
+          <in>proc_open.h</in>
+          <in>quot_print.h</in>
+          <in>scanf.h</in>
+          <in>sha1.h</in>
+          <in>streamsfuncs.h</in>
+          <in>uniqid.h</in>
+          <in>url.h</in>
+          <in>url_scanner_ex.h</in>
+          <in>winver.h</in>
+        </df>
+        <df name="xml">
+          <in>expat_compat.h</in>
+          <in>php_xml.h</in>
+        </df>
+      </df>
+      <df name="include">
+      </df>
+      <df name="main">
+        <df name="streams">
+          <in>php_stream_context.h</in>
+          <in>php_stream_filter_api.h</in>
+          <in>php_stream_glob_wrapper.h</in>
+          <in>php_stream_mmap.h</in>
+          <in>php_stream_plain_wrapper.h</in>
+          <in>php_stream_transport.h</in>
+          <in>php_stream_userspace.h</in>
+          <in>php_streams_int.h</in>
+        </df>
+        <in>SAPI.h</in>
+        <in>build-defs.h</in>
+        <in>fopen_wrappers.h</in>
+        <in>php.h</in>
+        <in>php_compat.h</in>
+        <in>php_config.h</in>
+        <in>php_content_types.h</in>
+        <in>php_getopt.h</in>
+        <in>php_globals.h</in>
+        <in>php_ini.h</in>
+        <in>php_main.h</in>
+        <in>php_memory_streams.h</in>
+        <in>php_network.h</in>
+        <in>php_open_temporary_file.h</in>
+        <in>php_output.h</in>
+        <in>php_reentrancy.h</in>
+        <in>php_scandir.h</in>
+        <in>php_stdint.h</in>
+        <in>php_streams.h</in>
+        <in>php_syslog.h</in>
+        <in>php_ticks.h</in>
+        <in>php_variables.h</in>
+        <in>php_version.h</in>
+        <in>rfc1867.h</in>
+        <in>snprintf.h</in>
+        <in>spprintf.h</in>
+        <in>win32_internal_function_disabled.h</in>
+        <in>win95nt.h</in>
+      </df>
+      <df name="sapi">
+        <df name="cli">
+          <in>cli.h</in>
+        </df>
+        <df name="embed">
+          <in>php_embed.h</in>
+        </df>
+      </df>
+      <df name="TSRM">
+        <in>TSRM.h</in>
+        <in>readdir.h</in>
+        <in>tsrm_config.h</in>
+        <in>tsrm_config.w32.h</in>
+        <in>tsrm_config_common.h</in>
+        <in>tsrm_nw.h</in>
+        <in>tsrm_strtok_r.h</in>
+        <in>tsrm_win32.h</in>
+      </df>
+      <df name="Zend">
+        <in>zend.h</in>
+        <in>zend_API.h</in>
+        <in>zend_alloc.h</in>
+        <in>zend_ast.h</in>
+        <in>zend_build.h</in>
+        <in>zend_builtin_functions.h</in>
+        <in>zend_closures.h</in>
+        <in>zend_compile.h</in>
+        <in>zend_config.h</in>
+        <in>zend_config.nw.h</in>
+        <in>zend_config.w32.h</in>
+        <in>zend_constants.h</in>
+        <in>zend_dtrace.h</in>
+        <in>zend_dtrace_gen.h</in>
+        <in>zend_dynamic_array.h</in>
+        <in>zend_errors.h</in>
+        <in>zend_exceptions.h</in>
+        <in>zend_execute.h</in>
+        <in>zend_extensions.h</in>
+        <in>zend_float.h</in>
+        <in>zend_gc.h</in>
+        <in>zend_generators.h</in>
+        <in>zend_globals.h</in>
+        <in>zend_globals_macros.h</in>
+        <in>zend_hash.h</in>
+        <in>zend_highlight.h</in>
+        <in>zend_indent.h</in>
+        <in>zend_ini.h</in>
+        <in>zend_ini_parser.h</in>
+        <in>zend_ini_scanner.h</in>
+        <in>zend_ini_scanner_defs.h</in>
+        <in>zend_interfaces.h</in>
+        <in>zend_istdiostream.h</in>
+        <in>zend_iterators.h</in>
+        <in>zend_language_parser.h</in>
+        <in>zend_language_scanner.h</in>
+        <in>zend_language_scanner_defs.h</in>
+        <in>zend_list.h</in>
+        <in>zend_llist.h</in>
+        <in>zend_modules.h</in>
+        <in>zend_multibyte.h</in>
+        <in>zend_multiply.h</in>
+        <in>zend_object_handlers.h</in>
+        <in>zend_objects.h</in>
+        <in>zend_objects_API.h</in>
+        <in>zend_operators.h</in>
+        <in>zend_ptr_stack.h</in>
+        <in>zend_qsort.h</in>
+        <in>zend_signal.h</in>
+        <in>zend_stack.h</in>
+        <in>zend_static_allocator.h</in>
+        <in>zend_stream.h</in>
+        <in>zend_string.h</in>
+        <in>zend_strtod.h</in>
+        <in>zend_ts_hash.h</in>
+        <in>zend_types.h</in>
+        <in>zend_variables.h</in>
+        <in>zend_virtual_cwd.h</in>
+        <in>zend_vm.h</in>
+        <in>zend_vm_def.h</in>
+        <in>zend_vm_execute.h</in>
+        <in>zend_vm_opcodes.h</in>
+      </df>
+    </df>
+    <itemPath>/home/dl_core/dl_core.c</itemPath>
+    <itemPath>/home/dl_core/include/dl_core.h</itemPath>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <compile>
+        <compiledirpicklist>
+          <compiledirpicklistitem>.</compiledirpicklistitem>
+          <compiledirpicklistitem>${AUTO_FOLDER}</compiledirpicklistitem>
+        </compiledirpicklist>
+        <compiledir>${AUTO_FOLDER}</compiledir>
+        <compilecommandpicklist>
+          <compilecommandpicklistitem>${MAKE} ${ITEM_NAME}.o</compilecommandpicklistitem>
+          <compilecommandpicklistitem>${AUTO_COMPILE}</compilecommandpicklistitem>
+        </compilecommandpicklist>
+        <compilecommand>${AUTO_COMPILE}</compilecommand>
+      </compile>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>"${OUTPUT_PATH}"</runcommand>
+        <rundir>.</rundir>
+        <buildfirst>false</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+  </confs>
+</configurationDescriptor>
