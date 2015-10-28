@@ -33,7 +33,8 @@
 /build/
 
 *
-
+!compile.sh
+!test.php
 !*.c
 !.h
 !*/*.c
