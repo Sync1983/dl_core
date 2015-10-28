@@ -1,4 +1,5 @@
 #include "php.h"
+#include "zend_API.h"
 #include "include/dl_core.h"
 
 int dl_core_core(char *S1, char *S2, int N, int M)
@@ -72,7 +73,9 @@ PHP_FUNCTION(dl_core)
 
 PHP_FUNCTION(dl_array)
 {
-  zval          *zarr, **row;
+  zval *array;
+          //, **row;
+  
   zvalue_value  arr_value;
   HashTable     *arr_hash;
   HashPosition  pointer;
@@ -85,13 +88,14 @@ PHP_FUNCTION(dl_array)
   
   long  distance = 0;
 
-  if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "asl", &zarr, &text, &text_len, &offset) == FAILURE) {
-    RETURN_NULL();
+  if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "zsl", &array, &text, &text_len, &offset TSRMLS_DC) == FAILURE) {
+    RETURN_FALSE;
   } 
   
-  Z_TYPE_P(zarr) = IS_ARRAY;
-  printf("%p\r\n", zarr);
-  //arr_count   = zend_hash_num_elements(Z_ARRVAL_P(zarr));
+  //Z_TYPE_PP(array) = IS_ARRAY;
+  printf("%p\r\n", array);
+  //printf("%p\r\n", Z_ARRVAL_PP(array));
+  arr_count   = zend_hash_num_elements(Z_ARRVAL_P(array));
   printf("%s\r\n", text);
   
   //arr_hash  = Z_ARRVAL_P(zarr);

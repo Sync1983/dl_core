@@ -11,4 +11,7 @@ $b = [
     ]
   ];
 
-echo dl_array($b,'adf',0);
+$c = 'adf';
+$d = 0;
+
+echo dl_array($b,$c,$d);

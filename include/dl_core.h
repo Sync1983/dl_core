@@ -8,12 +8,10 @@
 #ifndef DL_CORE_H
 #define DL_CORE_H
 
-#include "php.h"
-#include "zend_modules.h"
-#include "zend_API.h"
+#include <php.h>
 
 #ifdef ZTS
-#include "TSRM.h"
+  #include "TSRM.h"
 #endif
 
 PHP_FUNCTION(dl_core);

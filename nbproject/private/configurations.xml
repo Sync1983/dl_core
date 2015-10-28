@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <df root="src/include" name="0">
-      <in>dl_core.h</in>
-    </df>
     <df root="/usr/include/php5" name="2">
       <df name="ext">
         <df name="date">
@@ -354,8 +351,6 @@
         <in>zend_vm_opcodes.h</in>
       </df>
     </df>
-    <itemPath>/home/dl_core/dl_core.c</itemPath>
-    <itemPath>/home/dl_core/include/dl_core.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

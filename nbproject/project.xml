@@ -10,8 +10,8 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
-                <sourceRootElem>/home/dl_core/src</sourceRootElem>
                 <sourceRootElem>/usr/include/php5</sourceRootElem>
+                <sourceRootElem>/home/dl_core/include</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

@@ -14,4 +14,10 @@
             <file>file:/home/dl_core/src/include/dl_core.h</file>
         </group>
     </open-files>
+    <preferences xmlns="http://www.netbeans.org/ns/auxiliary-configuration-preferences/1">
+        <module name="org-netbeans-modules-cnd-discovery">
+            <property name="rootFolder" value="/usr/include/php5"/>
+            <property name="model-folder" value="/usr/include/php5"/>
+        </module>
+    </preferences>
 </project-private>
