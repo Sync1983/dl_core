@@ -1,3 +1,0 @@
-TRACE START [2015-10-28 13:33:59]
-    0.0001     229976   -> {main}() /home/dl_core/test.php:0
-    0.0001     231752     -> dl_array() /home/dl_core/test.php:17

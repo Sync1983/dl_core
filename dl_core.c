@@ -73,8 +73,8 @@ PHP_FUNCTION(dl_core)
 
 PHP_FUNCTION(dl_array)
 {
-  zval *array;
-          //, **row;
+  zval *array, **row;
+  zval *sub_array;
   
   zvalue_value  arr_value;
   HashTable     *arr_hash;
@@ -96,9 +96,9 @@ PHP_FUNCTION(dl_array)
   printf("%p\r\n", array);
   //printf("%p\r\n", Z_ARRVAL_PP(array));
   arr_count   = zend_hash_num_elements(Z_ARRVAL_P(array));
-  printf("%s\r\n", text);
+  printf("%d\r\n", arr_count);
   
-  //arr_hash  = Z_ARRVAL_P(zarr);
+  arr_hash  = Z_ARRVAL_P(array);
   //arr_count = zend_hash_num_elements(arr_hash);
   
   //text_part = (char *)emalloc(text_len + 2);
@@ -108,17 +108,22 @@ PHP_FUNCTION(dl_array)
   //zend_hash_internal_pointer_reset_ex(arr_hash, &pointer); 
   //      zend_hash_get_current_data_ex(arr_hash, (void**) &row, &pointer) == SUCCESS; 
   //      zend_hash_move_forward_ex(arr_hash, &pointer)) {
-  //for(  zend_hash_internal_pointer_reset_ex(arr_hash, &pointer); 
-  //      zend_hash_get_current_data_ex(arr_hash, (void**) &row, &pointer) == SUCCESS; 
-  //      zend_hash_move_forward_ex(arr_hash, &pointer)) {
+  for(  zend_hash_internal_pointer_reset_ex(arr_hash, &pointer); 
+        zend_hash_get_current_data_ex(arr_hash, (void**) &row, &pointer) == SUCCESS; 
+        zend_hash_move_forward_ex(arr_hash, &pointer)) {
   //  
-  //    //printf("%s", pointer->arKey);
+      sub_array = Z_ARRVAL_PP(row);
+      if( Z_TYPE_PP(row) != IS_ARRAY ){
+        RETURN_FALSE;
+      }
+      printf("%d", Z_ARRVAL_PP(row)->nNumOfElements);
+      add_assoc_long(Z_ARRVAL_PP(row),'distance',5);
   //  
   //  //RETURN_ZVAL(Z_ARRVAL_PP(row), 1, 0);// add_assoc_long(Z_ARRVAL_PP(row),"distance",5);
-  //}
+  }
 
   //efree(text_part);
   //distance = dl_core_core(S1,S2,N,M);
 	
-	RETURN_LONG(distance);
+	RETURN_TRUE;
 }
