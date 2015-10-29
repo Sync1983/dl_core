@@ -1,3 +1,7 @@
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include "php.h"
 #include "zend_API.h"
 #include "include/dl_core.h"
@@ -73,56 +77,35 @@ PHP_FUNCTION(dl_core)
 
 PHP_FUNCTION(dl_array)
 {
-  zval *array, **row;
-  zval *sub_array;
-  
-  zvalue_value  arr_value;
-  HashTable     *arr_hash;
-  HashPosition  pointer;
-  
-  int   arr_count;  
+  zval  **array;  
   char  *text;  
-  char  *text_part;  
   int   text_len;
   int   offset    = 0;
   
+  HashTable *ht_array;
+  zval  *sub_array;
+  char  *text_part;  
   long  distance = 0;
 
-  if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "zsl", &array, &text, &text_len, &offset TSRMLS_DC) == FAILURE) {
+  if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "As|l", &array, &text, &text_len, &offset) == FAILURE) {
     RETURN_FALSE;
-  } 
+  }   
+   
+  text_part = (char *)emalloc(text_len + 2);
   
-  //Z_TYPE_PP(array) = IS_ARRAY;
-  printf("%p\r\n", array);
-  //printf("%p\r\n", Z_ARRVAL_PP(array));
-  arr_count   = zend_hash_num_elements(Z_ARRVAL_P(array));
-  printf("%d\r\n", arr_count);
+  ht_array = (HashTable *)Z_ARRVAL_PP(array);  
+  foreach_start(ht_array,key,data,pos);
+          
+    //sub_array = data;
+    /*if( Z_TYPE_P(sub_array) != IS_ARRAY ){
+      RETURN_FALSE;
+    }*/
+    //printf("%d", Z_TYPE_P(data));
+    //add_assoc_long(sub_array, "distance" ,5);
+    
+  foreach_end(ht_array,pos)
   
-  arr_hash  = Z_ARRVAL_P(array);
-  //arr_count = zend_hash_num_elements(arr_hash);
-  
-  //text_part = (char *)emalloc(text_len + 2);
-  //RETURN_LONG(arr_value.lval);
-  //printf("%d", arr_value.lval);
-  
-  //zend_hash_internal_pointer_reset_ex(arr_hash, &pointer); 
-  //      zend_hash_get_current_data_ex(arr_hash, (void**) &row, &pointer) == SUCCESS; 
-  //      zend_hash_move_forward_ex(arr_hash, &pointer)) {
-  for(  zend_hash_internal_pointer_reset_ex(arr_hash, &pointer); 
-        zend_hash_get_current_data_ex(arr_hash, (void**) &row, &pointer) == SUCCESS; 
-        zend_hash_move_forward_ex(arr_hash, &pointer)) {
-  //  
-      sub_array = Z_ARRVAL_PP(row);
-      if( Z_TYPE_PP(row) != IS_ARRAY ){
-        RETURN_FALSE;
-      }
-      printf("%d", Z_ARRVAL_PP(row)->nNumOfElements);
-      add_assoc_long(Z_ARRVAL_PP(row),'distance',5);
-  //  
-  //  //RETURN_ZVAL(Z_ARRVAL_PP(row), 1, 0);// add_assoc_long(Z_ARRVAL_PP(row),"distance",5);
-  }
-
-  //efree(text_part);
+  efree(text_part);
   //distance = dl_core_core(S1,S2,N,M);
 	
 	RETURN_TRUE;
