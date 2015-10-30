@@ -22,17 +22,22 @@ PHP_FUNCTION(dl_array);
 
 #define foreach_start(array,key,data,pointer)   \
   HashPosition  pointer;                        \
-  zval   *key, *data;                           \
+  zval   *key, **data;                           \
   zend_hash_internal_pointer_reset_ex(          \
     (array),                                    \
     &pointer);                                  \
   while ( zend_hash_get_current_data_ex(        \
               (array ),                         \
-              (void **)&(data),                 \
+              (void **)&data,                   \
               &pointer                          \
             ) == SUCCESS) {                    
     
-    
+#define foreach_continue(array,pointer)         \
+  zend_hash_move_forward_ex(        \
+    (array),                        \
+    &pointer);                      \
+    continue;
+
 #define foreach_end(array, pointer) \
   zend_hash_move_forward_ex(        \
     (array),                        \

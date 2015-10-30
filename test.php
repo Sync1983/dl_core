@@ -2,13 +2,15 @@
 $b = [
     15 => [
       'text'  => 'abcdf',
-      'id'    =>  15
+      'id'    =>  15,
+      'distance' => 55
     ],
     18 => [
       'text'  => 'b',
       'id'    => 18
     ]
   ];
-$c = 'adf';
-$d = 0;
-echo dl_array($b,$c,$d);
+
+$result =  dl_array($b,'adf',0);
+var_dump($result);
+var_dump($b);

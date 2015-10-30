@@ -3,7 +3,8 @@
 #endif
 
 #include "php.h"
-#include "zend_API.h"
+#include "zend.h"
+#include "zend_hash.h"
 #include "include/dl_core.h"
 
 int dl_core_core(char *S1, char *S2, int N, int M)
@@ -77,36 +78,85 @@ PHP_FUNCTION(dl_core)
 
 PHP_FUNCTION(dl_array)
 {
-  zval  **array;  
+  zval  *array;
   char  *text;  
   int   text_len;
-  int   offset    = 0;
+  long  offset;
   
-  HashTable *ht_array;
-  zval  *sub_array;
+  HashTable *ht_array, *sub_array;
   char  *text_part;  
-  long  distance = 0;
 
-  if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "As|l", &array, &text, &text_len, &offset) == FAILURE) {
+  // Получаем аргументы функции. Внимание! Ошибка в типе аргументов приводет к SEGMENT FAULT
+  if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_DC, "asl", &array, &text, &text_len, &offset) == FAILURE) {
     RETURN_FALSE;
-  }   
-   
-  text_part = (char *)emalloc(text_len + 2);
-  
-  ht_array = (HashTable *)Z_ARRVAL_PP(array);  
+  }
+
+  // Преобразуем zval в HashTable для удобства работы
+  ht_array = (HashTable *)Z_ARRVAL_P(array);
+
+  // Перебираем все элементы массива. Определение см. dl_core.h
   foreach_start(ht_array,key,data,pos);
-          
-    //sub_array = data;
-    /*if( Z_TYPE_P(sub_array) != IS_ARRAY ){
-      RETURN_FALSE;
-    }*/
-    //printf("%d", Z_TYPE_P(data));
-    //add_assoc_long(sub_array, "distance" ,5);
+
+    zval          **distance;
+    zval          **cmp_val;
+    char          *cmp_text;
+    uint          cmp_text_len;
+    
+    // Получаем массив данных или NULL
+    sub_array = Z_TYPE_PP(data) == IS_ARRAY ? Z_ARRVAL_PP(data) : NULL;
+
+    if( sub_array == NULL ){
+      foreach_continue(ht_array,pos);     // Если данных нет - уходим к след. элементу
+    }
+
+    MAKE_STD_ZVAL(*distance);
+    
+    if( zend_hash_exists(sub_array, "distance", sizeof("distance")) ){
+      // Получаем ссылку на элемент массива
+      /*if( zend_hash_find(sub_array, "distance", sizeof("distance"), (void **)&distance) != SUCCESS ){
+        foreach_continue(ht_array,pos);     // Если данных нет - уходим к след. элементу
+      }*/
+    } else {
+        // Если элемента нет - создаем его
+        // Создадим запись distance для добавления в массив
+        convert_to_long(*distance);
+        
+        //Изначальную длинну выставляем в -1
+        Z_LVAL_PP(distance) = -1;
+
+        // Добавляем distance элемент в массив
+        zend_hash_add(sub_array, "distance", sizeof("distance"), (void **)distance, sizeof(zval), NULL);
+    }
+    
+    /*} else {
+        SEPARATE_ZVAL(distance);
+        convert_to_long(*distance);
+    };*/
+
+    printf(" %d New\r\n",Z_LVAL_PP(distance));
+
+    
+
+    // Получаем текст для сравнения
+    // Если текста нет - продолжаем со следующим элементом
+    if( ( zend_hash_find(sub_array, ZEND_STRS("text"), (void **)&cmp_val) != SUCCESS ) ||
+        ( Z_TYPE_PP(cmp_val) != IS_STRING ) ){
+        foreach_continue(ht_array,pos);
+    }
+
+    // Переводим текст из zval в char
+    cmp_text        = Z_STRVAL_PP(cmp_val);
+    cmp_text_len    = Z_STRLEN_PP(cmp_val);
+
+    printf(" ====> %s [%d] <> %s [%d] <==== \r\n",text,text_len,cmp_text,cmp_text_len);
+    text_part = (char *)emalloc(text_len + 2);
+    efree(text_part);
+
+    //Z_LVAL_PP(distance) += 15;
     
   foreach_end(ht_array,pos)
   
-  efree(text_part);
   //distance = dl_core_core(S1,S2,N,M);
 	
-	RETURN_TRUE;
+  RETURN_TRUE;
 }
