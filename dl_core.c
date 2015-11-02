@@ -7,7 +7,7 @@
 #include "zend_hash.h"
 #include "include/dl_core.h"
 
-int dl_core_core(char *S1, char *S2, int N, int M)
+long dl_core_core(char *S1, char *S2, int N, int M)
 {
   int D1 = 0, D2 = 0, D3 = 0, D4 = 0,distance = 0;
   
@@ -97,7 +97,7 @@ PHP_FUNCTION(dl_array)
   // Перебираем все элементы массива. Определение см. dl_core.h
   foreach_start(ht_array,key,data,pos);
 
-    zval          **distance;
+    zval          *distance;
     zval          **cmp_val;
     char          *cmp_text;
     uint          cmp_text_len;
@@ -108,34 +108,28 @@ PHP_FUNCTION(dl_array)
     if( sub_array == NULL ){
       foreach_continue(ht_array,pos);     // Если данных нет - уходим к след. элементу
     }
-
-    MAKE_STD_ZVAL(*distance);
     
     if( zend_hash_exists(sub_array, "distance", sizeof("distance")) ){
       // Получаем ссылку на элемент массива
-      /*if( zend_hash_find(sub_array, "distance", sizeof("distance"), (void **)&distance) != SUCCESS ){
+      zval **ppdistance = NULL;
+      if( ( zend_hash_find(sub_array, "distance", sizeof("distance"), (void **)&ppdistance) != SUCCESS ) ||
+          ( Z_TYPE_PP(ppdistance) == IS_NULL ) ){
         foreach_continue(ht_array,pos);     // Если данных нет - уходим к след. элементу
-      }*/
+      }
+      // Получаем значение указателя
+      distance = *ppdistance;
     } else {
-        // Если элемента нет - создаем его
+        // Если элемента нет - создаем его        
         // Создадим запись distance для добавления в массив
-        convert_to_long(*distance);
+        MAKE_STD_ZVAL(distance);
+        convert_to_long(distance);
         
         //Изначальную длинну выставляем в -1
-        Z_LVAL_PP(distance) = -1;
+        Z_LVAL_P(distance) = text_len;
 
         // Добавляем distance элемент в массив
-        zend_hash_add(sub_array, "distance", sizeof("distance"), (void **)distance, sizeof(zval), NULL);
+        zend_hash_add(sub_array, "distance", sizeof("distance"), (void **)&distance, sizeof(zval), NULL);
     }
-    
-    /*} else {
-        SEPARATE_ZVAL(distance);
-        convert_to_long(*distance);
-    };*/
-
-    printf(" %d New\r\n",Z_LVAL_PP(distance));
-
-    
 
     // Получаем текст для сравнения
     // Если текста нет - продолжаем со следующим элементом
@@ -149,14 +143,51 @@ PHP_FUNCTION(dl_array)
     cmp_text_len    = Z_STRLEN_PP(cmp_val);
 
     printf(" ====> %s [%d] <> %s [%d] <==== \r\n",text,text_len,cmp_text,cmp_text_len);
-    text_part = (char *)emalloc(text_len + 2);
-    efree(text_part);
 
-    //Z_LVAL_PP(distance) += 15;
+    if( cmp_text_len < offset ){
+      foreach_continue(ht_array,pos)
+    }
+
+    if( (cmp_text_len + offset) < text_len ){
+      Z_LVAL_P(distance) += dl_core_core(text, cmp_text + offset, cmp_text_len-offset, cmp_text_len-offset);
+      foreach_continue(ht_array,pos)
+    }
+
+
+    long D1 = text_len, D2 = text_len, D3 = text_len;
+
+    text_part = (char *)emalloc(text_len);
+    memset(text_part, 0, text_len);
+
+    // Сравниваем прямое совпадение частей
+    memcpy(text_part, cmp_text + offset, text_len);
+    D1 = dl_core_core(text, cmp_text + offset, text_len,text_len);
+    printf("C Str: %.3s Len: %lu\r\n",text_part,D1);
+
+    // Сравниваем совпадение смещенного на 1 символ влево текста ( аналог удаления символа на границе сравнения )
+    if( offset > 0){
+      //Сравниваем только при условии наличия символа слева
+        memcpy(text_part, cmp_text + offset - 1, text_len);
+        D2 = dl_core_core(text, cmp_text + offset - 1, text_len,text_len);
+        printf("L Str: %.3s Len: %lu\r\n",text_part,D2);
+    }
+
+    // Сравниваем совпадение смещенного на 1 символ вправо текста ( аналог добавления символа на границе сравнения )
+    if( cmp_text_len > (offset + text_len + 1) ){
+      //Сравниваем только при условии наличия символа слева
+      memcpy(text_part, cmp_text + offset + 1, text_len);
+      D3 = dl_core_core(text, cmp_text + offset + 1, text_len,text_len);
+      printf("L Str: %.3s Len: %lu\r\n",text_part,D3);
+    }
+
+    efree(text_part);
+    // Выбираем наименьшую ошибку сравнений
+    D1 = MIN(D1,D2);
+    D1 = MIN(D1,D3);
+
+    Z_LVAL_P(distance) += D1;
     
-  foreach_end(ht_array,pos)
-  
-  //distance = dl_core_core(S1,S2,N,M);
+    foreach_end(ht_array,pos)
 	
   RETURN_TRUE;
 }
