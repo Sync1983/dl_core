@@ -79,12 +79,12 @@ PHP_FUNCTION(dl_core)
 PHP_FUNCTION(dl_array)
 {
   zval  *array;
-  char  *text;  
-  int   text_len;
+  char  *text;
+  long  text_len;
   long  offset;
-  
+
   HashTable *ht_array, *sub_array;
-  char  *text_part;  
+  char  *text_part;
 
   // Получаем аргументы функции. Внимание! Ошибка в типе аргументов приводет к SEGMENT FAULT
   if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_DC, "asl", &array, &text, &text_len, &offset) == FAILURE) {
@@ -122,9 +122,9 @@ PHP_FUNCTION(dl_array)
         // Если элемента нет - создаем его        
         // Создадим запись distance для добавления в массив
         MAKE_STD_ZVAL(distance);
-        convert_to_long(distance);
+        Z_TYPE_P(distance) = IS_LONG;
         
-        //Изначальную длинну выставляем в -1
+        //Изначальную длинну выставляем в максимальную ошибку
         Z_LVAL_P(distance) = text_len;
 
         // Добавляем distance элемент в массив
@@ -154,15 +154,15 @@ PHP_FUNCTION(dl_array)
     }
 
 
-    long D1 = text_len, D2 = text_len, D3 = text_len;
+    //long D1 = text_len, D2 = text_len, D3 = text_len;
 
-    text_part = (char *)emalloc(text_len);
-    memset(text_part, 0, text_len);
+    //text_part = (char *)emalloc(text_len);
+    //memset(text_part, 0, text_len);
 
     // Сравниваем прямое совпадение частей
-    memcpy(text_part, cmp_text + offset, text_len);
-    D1 = dl_core_core(text, cmp_text + offset, text_len,text_len);
-    printf("C Str: %.3s Len: %lu\r\n",text_part,D1);
+    //memcpy(text_part, cmp_text + offset, text_len);
+    //D1 = dl_core_core(text, cmp_text + offset, text_len,text_len);
+    /*printf("C Str: %.3s Len: %lu\r\n",text_part,D1);
 
     // Сравниваем совпадение смещенного на 1 символ влево текста ( аналог удаления символа на границе сравнения )
     if( offset > 0){
@@ -178,14 +178,14 @@ PHP_FUNCTION(dl_array)
       memcpy(text_part, cmp_text + offset + 1, text_len);
       D3 = dl_core_core(text, cmp_text + offset + 1, text_len,text_len);
       printf("L Str: %.3s Len: %lu\r\n",text_part,D3);
-    }
+    }*/
 
-    efree(text_part);
+    //efree(text_part);
     // Выбираем наименьшую ошибку сравнений
-    D1 = MIN(D1,D2);
-    D1 = MIN(D1,D3);
+    //D1 = MIN(D1,D2);
+    //D1 = MIN(D1,D3);
 
-    Z_LVAL_P(distance) += D1;
+    //Z_LVAL_P(distance) += D1;
     
     foreach_end(ht_array,pos)
 	

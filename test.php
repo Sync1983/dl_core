@@ -1,4 +1,7 @@
 <?php
+
+include "rows.php";
+
 $b = [
     19 => [
       'text'  => '',
@@ -22,10 +25,6 @@ $b = [
       'distance' => 0
     ]
   ];
-
-$result =  dl_array($b,'adf',0);
-var_dump($b);
-$result =  dl_array($b,'adf',1);
-var_dump($b);
-$result =  dl_array($b,'adf',2);
+$text = 'AНОМЕР';
+$result =  dl_array($b,$text,0);
 var_dump($b);

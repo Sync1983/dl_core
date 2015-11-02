@@ -226,5 +226,6 @@ HEADERS += \
     ../../php-src/usr/include/php/ext/standard/winver.h
 
 DISTFILES += \
-    ../test.php
+    ../test.php \
+    ../rows.php
 
