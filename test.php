@@ -26,5 +26,6 @@ $b = [
     ]
   ];
 $text = 'AНОМЕР';
+$text = 'abcdf';
 $result =  dl_array($b,$text,0);
 var_dump($b);

@@ -44,6 +44,13 @@ PHP_FUNCTION(dl_array);
     &pointer);                      \
   }
 
+typedef struct dl_array_data{
+  zval          *distance;
+  char          *text;
+  unsigned long text_len;
+} dl_array_data;
+
+dl_array_data * dl_get_array_data(zval **data);
 
 static zend_function_entry dl_core_functions[] = {
     PHP_FE(dl_core, NULL)
