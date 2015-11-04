@@ -41,6 +41,7 @@ typedef struct dl_char{
   unsigned long   len; 
   unsigned int    data;
   struct dl_char  *next;
+  struct dl_char  *prev;
 } dl_char;
 
 typedef struct dl_cmp_str{

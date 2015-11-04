@@ -135,6 +135,25 @@ DL_PCHAR dl_string_sub(DL_PCHAR str, unsigned long start, unsigned long end)
 
 unsigned long dl_string_calculate(DL_PCMP compare)
 {
+  dl_cmp_str      *S1 = compare->S1, 
+                  *S2 = compare->S2;
+  DL_PCHAR        sub_str1;
+  DL_PCHAR        sub_str2;
+  unsigned long   sub_str1_len, 
+                  sub_str2_len;
+  
+  if( (S1 == NULL)          || (S2 == NULL) ||
+      (S1->from >= S1->to)  || (S2->from >= S2->to) ){
+    return -1;
+  }
+
+  sub_str1_len  = S1->to - S1->from;
+  sub_str2_len  = S2->to - S2->from;
+
+  sub_str1 = dl_string_sub(S1->str, S1->from, S1->to);
+  sub_str2 = dl_string_sub(S2->str, S2->from, S2->to);
+
+
 
   return 55;
 }
@@ -306,10 +325,12 @@ dl_char * dl_string_parse(char *str, unsigned long length)
     // Если указатель на текущий элемент пустой, то создаем указатель на корень и текущий элемент
     if( item != NULL ) {
       DL_MAKE_PCHAR( PDL_NEXT(item) );
+      PDL_NEXT(item)->prev = item;
       item = PDL_NEXT(item);
     } else {
       DL_MAKE_PCHAR(root);
       item = root;
+      root->prev = NULL;
     }    
     // Следующйи элемент объявляем пустым и запоминаем номер текущего симовла
     PDL_NEXT(item)  = NULL;
