@@ -25,7 +25,14 @@ $b = [
       'distance' => 0
     ]
   ];
-$text = 'AНОМЕР';
-$text = 'abcdf';
-$result =  dl_array($b,$text,0);
-var_dump($b);
+$b = $rows;
+$text = 'КЛАПОНЫ';
+$time = microtime(true);
+$result =  dl_array($b,$text,3);
+usort($b,function($A,$B){
+  return $A['distance'] > $B['distance'];
+});
+$time = microtime(true) - $time;
+echo "Time is $time ms \r\n";
+$answer = array_splice($b,0,10);
+var_dump($answer);
