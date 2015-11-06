@@ -9,6 +9,8 @@
   (byte & 0x02 ? 1 : 0), \
   (byte & 0x01 ? 1 : 0)
 
+#define MIN(a,b) (((a)<(b))?(a):(b))
+#define MAX(a,b) (((a)>(b))?(a):(b))
 #define DL_CHAR_POS(data,pos) *((data) + (pos))
 #define DL_CHAR_COMPARE(data1,pos1,data2,pos2)  ( DL_CHAR_POS(data1,(pos1)) == DL_CHAR_POS(data2,(pos2)) )
 #define IS_CONTINUE_BYTE(byte) ( (((byte) ^ 0x40) & 0xC0) == 0xC0 )

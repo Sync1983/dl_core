@@ -14,11 +14,8 @@
 
 #define PHP_DL_CORE_VERSION "0.1"
 
-PHP_FUNCTION(dl_core);
 PHP_FUNCTION(dl_array);
-
-#define MIN(a,b) (((a)<(b))?(a):(b))
-#define MAX(a,b) (((a)>(b))?(a):(b))
+PHP_FUNCTION(dl_filter);
 
 #define foreach_start(array,key,data,pointer)   \
   HashPosition  pointer;                        \
@@ -52,9 +49,9 @@ typedef struct dl_array_data{
 
 dl_array_data * dl_get_array_data(zval **data);
 
-static zend_function_entry dl_core_functions[] = {
-    PHP_FE(dl_core, NULL)
+static zend_function_entry dl_core_functions[] = {    
     PHP_FE(dl_array, NULL)    
+    PHP_FE(dl_filter, NULL)
     {NULL, NULL, NULL}
 };
 
@@ -71,7 +68,7 @@ zend_module_entry dl_core_module_entry = {
     STANDARD_MODULE_PROPERTIES
 };
 
-ZEND_GET_MODULE(dl_core)
+    ZEND_GET_MODULE(dl_core)
 //#ifdef COMPILE_DL_HELLO
 //#endif
 
