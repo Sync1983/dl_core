@@ -1,0 +1,10 @@
+*/*.*
+
+!dl_*.c
+!dl_*.h
+!compile.sh
+!rows.php
+!test.php
+!php.ini
+!config.m4
+
