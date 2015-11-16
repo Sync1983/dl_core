@@ -137,17 +137,19 @@ PHP_FUNCTION(dl_array)
   long  text_len  = 0;
   long  delta_len = 0;
   long  offset    = 0;
-  long  length    = 0;
+  long  max_length= 0;
 
   HashTable     *ht_array;
   ulong         min_length      = 0;
+  char          full_compare    = 0;
+  long          length          = 0;
   dl_string     *p_text         = NULL,
                 *p_array_text   = NULL,
                 *str1           = NULL,
                 *str2           = NULL;
 
   // Получаем аргументы функции. Внимание! Ошибка в типе аргументов приводет к SEGMENT FAULT
-  if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_DC, "as|ll", &array, &text, &text_len, &offset, &length) == FAILURE) {
+  if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_DC, "as|ll", &array, &text, &text_len, &offset, &max_length) == FAILURE) {
     RETURN_LONG(-1);
   }
 
@@ -155,7 +157,8 @@ PHP_FUNCTION(dl_array)
   ht_array    = (HashTable *)Z_ARRVAL_P(array);
   // Разбираем многобайтную строку в структуру сравнения
   p_text      = dl_string_make(text, text_len);
-  length      = (length == 0)? p_text->len : length;
+  full_compare= (max_length == 0)? 1:0;
+  length      = (max_length == 0)? p_text->len : max_length;
   min_length  = (ulong) -1;
   // Перебираем все элементы массива. Определение см. dl_core.h
   foreach_start(ht_array,key,data,pos)
@@ -173,11 +176,16 @@ PHP_FUNCTION(dl_array)
     p_array_text  = dl_string_make(row->text, row->text_len);    
     
     // Получаем подстроки с указанного смещения и минимальной длины
+    delta_len = 0;
     str1 = dl_string_sub_ref(p_text,      offset,length);
-    str2 = dl_string_sub_ref(p_array_text,offset,length);
-
-    if( (p_array_text != NULL ) && (p_array_text->len < length) ) {
-      delta_len = length - p_array_text->len;
+    if( (row->text_len > length) && (full_compare == 1) ){
+      str2      = dl_string_sub_ref(p_array_text,offset,length);
+      delta_len = row->text_len - length;
+    } else{
+      str2 = dl_string_sub_ref(p_array_text,offset,length);
+      if (length > p_array_text->len) {
+        delta_len = length - p_array_text->len;
+      }
     }
 
     // Вычисляем новое расстояние
@@ -246,7 +254,7 @@ PHP_FUNCTION(dl_filter)
     MAKE_STD_ZVAL(new_element);
     *new_element = **data;
     zval_copy_ctor(new_element);*/
-    //zval_add_ref(data);
+    zval_add_ref(data);
     add_index_zval(new_array,count++,*data);
     efree(row);
   foreach_end(ht_array,pos)

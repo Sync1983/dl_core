@@ -27,6 +27,7 @@ $b = [
   ];
 $b = $rows;
 $text = 'ПОРШЕН';
+echo "Rows: " . count($rows) ."\r\n";
 $time = microtime(true);
 $result =  dl_array($b,$text,0,4);
 $result =  dl_array($b,$text,3,4);
